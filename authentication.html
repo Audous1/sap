@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSRF Vulnerabilities Showcase</title>
+    <link rel="stylesheet" href="authentication.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="index.html#home">Home</a></li>
+                <li><a href="about.html">About Us</a></li>
+                <li class="dropdown">
+                    <a href="#" class="dropbtn">Vulnerabilities</a>
+                    <div class="dropdown-content">
+                        <a href="o.html">Buffer Overflow</a>
+                        <a href="sequel.html">SQL Injection</a>
+                        <a href="exeses.html">Cross-Site Scripting (XSS)</a>
+                        <a href="csrf.html">Cross-Site Request Forgery (CSRF)</a>
+                        <a href="authentication.html">Broken Authentication</a>
+                        <a href="cmd_i.html">Command Injection</a>
+                        <a href="social.html">Social Engineering</a>
+                    </div>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <section id="broken-auth-section" class="section">
+        <h2>Broken Authentication</h2>
+        <p>
+            Broken Authentication occurs when an application’s authentication mechanism is improperly implemented, making it vulnerable to attacks. Weak passwords, predictable session IDs, and lack of multi-factor authentication (MFA) are some examples of broken authentication, which can lead to unauthorized access to sensitive information.
+        </p>
+        <p>
+            In this sandbox, try to log in using different examples of weak security practices and see how these flaws could be exploited.
+        </p>
+    
+        <!-- Example 1: Weak Password -->
+        <div class="sandbox">
+            <h3>Example 1: Weak Password</h3>
+            <p>
+                This form allows a login with a weak, common password. Try using <code>admin</code> as the username and common passwords like <code>password</code>, <code>123456</code>, or <code>qwerty</code>.
+            </p>
+            <input type="text" id="weakUsername" placeholder="Username" />
+            <input type="password" id="weakPassword" placeholder="Password" oninput="checkPasswordStrength()" />
+            <div id="strengthMessage"></div>
+            <p id="weakResult"></p>
+        </div>
+        <section>    
+        <script>
+            function checkPasswordStrength() {
+    const password = document.getElementById("weakPassword").value;
+    const strengthMessage = document.getElementById("strengthMessage");
+
+    // Regular expressions for different criteria
+    const hasNumber = /\d/;
+    const hasSpecialChar = /[$&+,:;=?@#|'<>.-^*()%!]/;
+    const commonWords = ["password", "123456", "qwerty", "admin", "welcome"];
+    const hasCommonWord = commonWords.some(word => password.toLowerCase().includes(word));
+
+    // Determine password strength level
+    let strengthLevel;
+    if (password.length > 12 && hasNumber.test(password) && hasSpecialChar.test(password) && !hasCommonWord) {
+        strengthLevel = "Very Strong";
+    } else if (password.length > 12 && hasNumber.test(password) && hasSpecialChar.test(password)) {
+        strengthLevel = "Strong";
+    } else if (password.length > 10 && hasNumber.test(password)) {
+        strengthLevel = "Medium";
+    } else {
+        strengthLevel = "Weak";
+    }
+
+    // Display the appropriate message
+    switch (strengthLevel) {
+        case "Weak":
+            strengthMessage.textContent = "Password Strength: Weak (Consider adding numbers)";
+            strengthMessage.style.color = "red";
+            break;
+        case "Medium":
+            strengthMessage.textContent = "Password Strength: Medium (Add special characters for more strength)";
+            strengthMessage.style.color = "orange";
+            break;
+        case "Strong":
+            strengthMessage.textContent = "Password Strength: Strong (Consider removing common words for better security)";
+            strengthMessage.style.color = "green";
+            break;
+        case "Very Strong":
+            strengthMessage.textContent = "Password Strength: Very Strong";
+            strengthMessage.style.color = "blue";
+            break;
+        default:
+            strengthMessage.textContent = "";
+            break;
+    }
+}
+
+        
+            function simulateWeakPasswordLogin() {
+                const username = document.getElementById("weakUsername").value;
+                const password = document.getElementById("weakPassword").value;
+                const weakResult = document.getElementById("weakResult");
+        
+                if (username === "admin" && password === "password") {
+                    weakResult.textContent = "Logged in successfully. Weak password detected!";
+                    weakResult.style.color = "orange";
+                } else {
+                    weakResult.textContent = "Incorrect username or password.";
+                    weakResult.style.color = "red";
+                }
+            }
+        </script>
+
+
+
+
+        <!-- Example 2: Predictable Session ID -->
+<!-- Example 2: Predictable Session ID -->
+<div class="sandbox">
+    <h3>Example 2: Predictable Session ID</h3>
+    <p>
+        Here, session IDs are predictable. Simulate logging in as a user, then as an attacker trying to hijack the session.
+    </p>
+    <button onclick="simulateUserLogin()">User Login</button>
+    <button onclick="simulateAttacker()">Attacker Hijack</button>
+    <p id="sessionResult"></p>
+</div>
+
+<script>
+    // Global session storage to simulate session IDs
+    let sessionID;
+
+    // Simulate a user login with a predictable session ID
+    function simulateUserLogin() {
+        // Assign a simple predictable session ID for demonstration
+        sessionID = Math.floor(Math.random() * 10) + 1; // Predictable session ID (between 1 and 10)
+        document.getElementById("sessionResult").textContent = `User logged in with Session ID: ${sessionID}`;
+        document.getElementById("sessionResult").style.color = "green";
+    }
+
+    // Simulate an attacker guessing the session ID to hijack the session
+    function simulateAttacker() {
+        const guessedSessionID = Math.floor(Math.random() * 10) + 1; // Attacker guesses a session ID
+        const sessionResult = document.getElementById("sessionResult");
+
+        if (guessedSessionID === sessionID) {
+            sessionResult.textContent = `Attacker successfully hijacked the session with Session ID: ${guessedSessionID}`;
+            sessionResult.style.color = "red";
+        } else {
+            sessionResult.textContent = `Attacker attempted to hijack with Session ID: ${guessedSessionID}, but failed.`;
+            sessionResult.style.color = "orange";
+        }
+    }
+</script>
+
+<section id="password-complexity" class="section">
+    <h2>The Importance of Password Complexity in Authentication Security</h2>
+    <p>
+        Password complexity makes a significant difference in the time it takes for hackers to crack a password. As more character types (letters, numbers, special characters) are added, the number of possible combinations increases exponentially, making it increasingly difficult for brute-force attacks to succeed. Below are examples showing the estimated combinations and time to crack at different password complexity levels.
+    </p>
+
+    <h3>Password Complexity Levels</h3>
+    
+    <h4>1. Easy (6 Characters, Only Lowercase Letters)</h4>
+    <p>
+        A password with only lowercase letters and six characters has 26<sup>6</sup> possible combinations, or about 308 million. With a computer capable of making 1 billion guesses per second, this password could theoretically be cracked in:
+    </p>
+    <ul>
+        <li><strong>Combinations:</strong> 26<sup>6</sup> = 308,915,776 possible combinations.</li>
+        <li><strong>Time to crack:</strong> approximately 0.31 seconds.</li>
+    </ul>
+
+    <h4>2. Medium (8 Characters, Lowercase and Uppercase Letters)</h4>
+    <p>
+        Adding uppercase letters to an 8-character password increases the possible combinations to 52<sup>8</sup>, or around 53 trillion. Using the same high-speed computer, this would take:
+    </p>
+    <ul>
+        <li><strong>Combinations:</strong> 52<sup>8</sup> ≈ 53,459,728,531,456.</li>
+        <li><strong>Time to crack:</strong> about 53.5 seconds.</li>
+    </ul>
+
+    <h4>3. Hard (10 Characters, Letters and Numbers)</h4>
+    <p>
+        Including numbers along with letters in a 10-character password increases possible combinations to 62<sup>10</sup>, or roughly 839 trillion. Cracking this password would take:
+    </p>
+    <ul>
+        <li><strong>Combinations:</strong> 62<sup>10</sup> ≈ 839,299,365,868,340.</li>
+        <li><strong>Time to crack:</strong> approximately 9.7 days.</li>
+    </ul>
+
+    <h4>4. Very Hard (12 Characters, Letters, Numbers, and Special Characters)</h4>
+    <p>
+        Adding special characters to a 12-character password boosts possible combinations to 94<sup>12</sup>, or about 475 quintillion. Cracking this password would take:
+    </p>
+    <ul>
+        <li><strong>Combinations:</strong> 94<sup>12</sup> ≈ 475,920,314,814,253,376,475,136.</li>
+        <li><strong>Time to crack:</strong> over 15,000 years.</li>
+    </ul>
+
+    <h3>Conclusion</h3>
+    <p>
+        These examples show how the difficulty of brute-force attacks increases significantly with password complexity. Using a long password with numbers, special characters, and irregular patterns can make a password nearly impossible to crack in a realistic timeframe.
+    </p>
+</section>
+
+
+
+<section id="password-security" class="section">
+    <h2>The Philosophy and Mechanisms Behind Keeping Secrets</h2>
+    <p>
+        Week 2's lectures focused on secrets. I felt like it was appropriate to raise it here as it could be part of the SAP. It raised many philosophical and thought-provoking questions about how to maintain them. At first, it might seem obvious on a foundational level—just don't tell anyone. However, this approach becomes challenging as more individuals, technologies, and systems are involved. Human civilization couldn’t expand if secrets were kept at the minimalistic level (not telling anyone), but we can employ mechanisms to contain potential leaks in larger contexts.
+    </p>
+
+    <p>
+        Steganography, cryptography, and data control are just a few of the methods for keeping a secret secure. These methods are general yet intricate, and though I will not explore them in depth here, it’s crucial to be aware of their importance. During the lectures, we discussed several methods to maintain secrecy effectively. For this article, I will focus on a type of secret we encounter every day—passwords. It’s vital to examine this kind of secret as we live in a digitalized world, requiring this secret daily. Even though we use it constantly, we are still maintaining its secrecy. Passwords have become routine, yet we subconsciously safeguard them without thinking about it (hopefully).
+    </p>
+
+    <h3>The Question: How Are Passwords Kept Secret?</h3>
+    <p>
+        Password security begins with the user, who must first keep it a secret by not disclosing it. Next, the password must be secure since, even if the user hasn’t shared it, the database and by extension the entire system know about it, introducing potential risk. Longer, complex passwords with unfamiliar sequences are more challenging to crack. In databases, passwords are stored in hashed and encrypted forms.
+    </p>
+
+    <h3>Network and People: The Secondary Security Variable</h3>
+    <p>
+        Beyond the user, the network or individuals in charge of the database must ensure security. It is vital for the managing entity to implement secure encryption methods and restrict understanding of these methods to a limited, trusted group.
+    </p>
+
+    <h3>Third-Party 2FA Software: An Additional Layer</h3>
+    <p>
+        If someone does manage to access the database and understand the encryption, many password systems—including those at our university—use third-party 2FA (Two-Factor Authentication) software to add another layer of security. This means that an unauthorized individual would have to compromise both the database and the 2FA software, reducing the likelihood of success.
+    </p>
+
+    <h3>Guidelines for Strong, Secure Passwords</h3>
+    <p>
+        While no security measure is foolproof (as mentioned in Week 1’s logbook), we can fortify our defenses by considering potential attack vectors and following essential precautions:
+    </p>
+    <ul>
+        <li><strong>The Obvious - Don't tell a soul.</strong> The most fundamental rule of keeping a secret is not to tell anyone.</li>
+        <li><strong>Avoid Shady Websites.</strong> Avoid registering on untrustworthy websites.</li>
+        <li><strong>Unique Passwords for Each Site.</strong> Using different passwords for each website reduces risk.</li>
+        <li><strong>Length and Complexity.</strong> Long passwords with complex sequences are more difficult to breach.</li>
+        <li><strong>Consider 3rd Party Security Services.</strong> Organizations may improve security by adopting trusted 3rd-party services like Microsoft and Authy.</li>
+        <li><strong>Hire Trustworthy Employees.</strong> Hire transparent, trustworthy individuals and maintain a balanced power structure with strict HR protocols.</li>
+        <li><strong>Secure and Encrypted Databases.</strong> Keeping databases secure and encrypted is essential.</li>
+    </ul>
+</section>
+
+<section id="medibank-breach-section" class="section">
+    <h2>Medibank Security Breach: A Case Study</h2>
+    <p>
+        In October 2022, Medibank, one of Australia's largest health insurance providers, suffered a significant cybersecurity breach. This incident exposed the sensitive information of nearly 10 million customers, impacting millions of Australians and highlighting the growing importance of robust data security measures. This breach, considered one of the most severe in Australian history, underscored how even major companies can fall victim to sophisticated cyber threats.
+    </p>
+    
+    <h3>Background of the Breach</h3>
+    <p>
+        Medibank first reported suspicious activity in its systems in October 2022, initially believing the incident to be contained. However, further investigation revealed that attackers had accessed sensitive customer data, including personally identifiable information (PII), medical records, and contact information. This unauthorized access exposed Medibank to significant legal, financial, and reputational challenges as more details of the breach unfolded.
+    </p>
+
+    <h3>The Scale of the Data Compromise</h3>
+    <p>
+        The breach involved the unauthorized access of sensitive information, affecting around 9.7 million current and former customers. The data exposed included:
+    </p>
+    <ul>
+        <li><strong>Personally Identifiable Information (PII):</strong> Names, addresses, birthdates, and contact information of customers.</li>
+        <li><strong>Health Data:</strong> Details of medical procedures and records for a subset of customers.</li>
+        <li><strong>Financial Information:</strong> Banking details and Medicare numbers, which can be used in identity theft or fraud schemes.</li>
+    </ul>
+    <p>
+        The breadth and sensitivity of this information heightened public concern, especially regarding the potential for fraud, identity theft, and the misuse of personal health data. This breach highlighted how a single security lapse can compromise sensitive personal information on a massive scale.
+    </p>
+
+    <h3>The Attack Methodology</h3>
+    <p>
+        While Medibank initially suspected a ransomware attack, investigations later revealed that the hackers had employed unauthorized access and reconnaissance methods, rather than directly encrypting files. This suggests the attack was premeditated and conducted with the intent of obtaining sensitive data to extort the organization and release data if demands were not met.
+    </p>
+    <p>
+        The attackers claimed responsibility for the breach and demanded a ransom in exchange for not publishing the data. Medibank refused to pay, aligning with the Australian government’s policy on ransom demands to deter future attacks.
+    </p>
+
+    <h3>Impact and Consequences</h3>
+    <p>
+        The Medibank breach had extensive implications across several dimensions:
+    </p>
+    <ul>
+        <li><strong>Customer Trust:</strong> The exposure of sensitive data led to a significant loss of customer trust, with many questioning the adequacy of Medibank’s security measures.</li>
+        <li><strong>Financial and Legal Repercussions:</strong> Medibank faced potential regulatory fines, legal actions from customers, and increased security costs to improve their systems.</li>
+        <li><strong>Public Health Concerns:</strong> For the individuals whose health information was leaked, the breach raised concerns about confidentiality and the stigmatization of certain medical conditions.</li>
+        <li><strong>Governmental and Regulatory Responses:</strong> The Australian government responded by pledging stronger regulations and penalties for companies failing to protect customer data adequately.</li>
+    </ul>
+
+    <h3>Key Vulnerabilities and Lessons Learned</h3>
+    <p>
+        The Medibank breach exposed several vulnerabilities within the company’s security systems and serves as a learning opportunity for organizations globally. Key takeaways include:
+    </p>
+    <ul>
+        <li><strong>Importance of Data Encryption:</strong> Encrypting sensitive data, such as health records and PII, both in transit and at rest, is crucial to prevent unauthorized access in the event of a breach.</li>
+        <li><strong>Strong Access Control and Monitoring:</strong> Implementing robust access controls and monitoring network activity to detect and prevent unauthorized access is essential. The breach highlights the need for enhanced user and entity behavior analytics (UEBA) to identify anomalous behavior early.</li>
+        <li><strong>Incident Response and Communication:</strong> Timely and transparent communication with stakeholders is vital during a breach. Medibank’s delayed response initially downplayed the breach’s scope, leading to public frustration and exacerbating reputational damage.</li>
+        <li><strong>Implementing Zero Trust Security Models:</strong> Adopting a Zero Trust model, where each request is verified regardless of its origin, could mitigate such risks by reducing an attacker’s ability to move laterally within a network.</li>
+        <li><strong>Regular Penetration Testing:</strong> Routine security audits and penetration testing can help identify and address security gaps, minimizing the risk of similar breaches.</li>
+    </ul>
+
+    <h3>Strategies for Strengthening Cybersecurity Posture</h3>
+    <p>
+        For organizations aiming to prevent similar breaches, adopting a comprehensive cybersecurity strategy is essential. Recommended practices include:
+    </p>
+    <ul>
+        <li><strong>Enhanced Data Encryption:</strong> Ensure that all sensitive data is encrypted and can only be decrypted by authorized individuals.</li>
+        <li><strong>Implementing Multi-Factor Authentication (MFA):</strong> Use MFA to add an additional layer of security, making it harder for attackers to gain unauthorized access.</li>
+        <li><strong>Employee Training and Awareness:</strong> Regularly educate employees on phishing, social engineering, and the importance of maintaining security protocols.</li>
+        <li><strong>Network Segmentation:</strong> Limit access to sensitive information by segmenting networks, ensuring only those who require access can reach particular parts of the system.</li>
+        <li><strong>Collaboration with Cybersecurity Agencies:</strong> Establish partnerships with cybersecurity agencies to access the latest threat intelligence and respond swiftly to threats.</li>
+    </ul>
+
+    <h3>Conclusion</h3>
+    <p>
+        The Medibank breach was a stark reminder of the evolving threats faced by organizations handling sensitive data. As cyber threats become more sophisticated, it is critical for organizations to stay vigilant, prioritize data security, and adopt industry-leading practices. By learning from Medibank’s experience, businesses can strengthen their defenses and better protect their customers’ trust and data.
+    </p>
+
+    <img src="medibank.png" class="logo">
+
+    
+</section>
+
+
+</body>
+
+</html>

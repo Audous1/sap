@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Security Vulnerabilities Showcase</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="index.html#home">Home</a></li>
+                <li><a href="about.html">About Us</a></li>
+                <li class="dropdown">
+                    <a href="#" class="dropbtn">Vulnerabilities</a>
+                    <div class="dropdown-content">
+                        <a href="o.html">Buffer Overflow</a>
+                        <a href="sequel.html">SQL Injection</a>
+                        <a href="exeses.html">Cross-Site Scripting (XSS)</a>
+                        <a href="csrf.html">Cross-Site Request Forgery (CSRF)</a>
+                        <a href="authentication.html">Broken Authentication</a>
+                        <a href="cmd_i.html">Command Injection</a>
+                        <a href="social.html">Social Engineering</a>
+                    </div>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Home Section -->
+    <section id="home" class="section">
+        <h1>Welcome to the Security Vulnerabilities Showcase</h1>
+        <p>Explore common security vulnerabilities in a controlled environment. Learn how these vulnerabilities can be exploited and how to protect against them.</p>
+        <div id="clock">
+            <div class="clock-container">
+                <div class="clock">
+                    <p>AEST: <span id="aest-time"></span></p>
+                    <img src="australia-flag.svg" class="flag1">
+                </div>
+                <div class="clock">
+                    <p>UTC: <span id="utc-time"></span></p>
+                    <img src="globe-line-icon.svg" class="flag2">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="vulnerability-carousel" class="section">
+        <p>Learn about <span id="vulnerability-text">
+    </section>
+    
+
+    <section class="security-topics">
+        <h1>
+            <img src="warning-icon.svg" alt="Warning Icon" class="warning-icon" />
+            Security Vulnerabilities
+            <img src="warning-icon.svg" alt="Warning Icon" class="warning-icon" />
+        </h1>
+        <ul class="topic-list">
+            <ul class="topic-list">
+                <li>
+                    <a href="o.html" class="topic-link">
+                        <h2>Buffer Overflow</h2>
+                    </a>
+                    <p class="topic-content">
+                        A buffer overflow occurs when a program writes more data to a buffer than it can hold, causing it to overwrite adjacent memory. Attackers can exploit this to inject malicious code and take control of the system.
+                    </p>
+                </li>
+                <li>
+                    <a href="sequel.html" class="topic-link">
+                        <h2>SQL Injection</h2>
+                    </a>
+                    <p class="topic-content">
+                        SQL Injection involves inserting malicious SQL queries into an application's database query, allowing attackers to read or modify sensitive information.
+                    </p>
+                </li>
+                <li>
+                    <a href="exeses.html" class="topic-link">
+                        <h2>Cross-Site Scripting (XSS)</h2>
+                    </a>
+                    <p class="topic-content">
+                        XSS vulnerabilities allow attackers to inject malicious scripts into webpages that are viewed by other users, potentially stealing sensitive data or manipulating page content.
+                    </p>
+                </li>
+                <li>
+                    <a href="csrf.html" class="topic-link">
+                        <h2>Cross-Site Request Forgery (CSRF)</h2>
+                    </a>
+                    <p class="topic-content">
+                        CSRF tricks authenticated users into unknowingly submitting requests to perform actions they did not intend, allowing attackers to perform actions on behalf of users.
+                    </p>
+                </li>
+                <li>
+                    <a href="authentication.html" class="topic-link">
+                        <h2>Broken Authentication</h2>
+                    </a>
+                    <p class="topic-content">
+                        Broken authentication refers to flaws in the process of authenticating users, which can allow attackers to impersonate legitimate users.
+                    </p>
+                </li>
+                <li>
+                    <a href="#idor-section" class="topic-link">
+                        <h2>Insecure Direct Object References (IDOR)</h2>
+                    </a>
+                    <p class="topic-content">
+                        IDOR vulnerabilities occur when an application exposes internal objects directly without proper access control, allowing attackers to access data or actions they shouldn't.
+                    </p>
+                </li>
+                <li>
+                    <a href="#security-misconfig-section" class="topic-link">
+                        <h2>Security Misconfiguration</h2>
+                    </a>
+                    <p class="topic-content">
+                        Security misconfiguration occurs when application or server settings are incorrectly configured, exposing the system to potential attacks.
+                    </p>
+                </li>
+                <li>
+                    <a href="cmd_i.html" class="topic-link">
+                        <h2>Sensitive Data Exposure</h2>
+                    </a>
+                    <p class="topic-content">
+                        Sensitive data exposure happens when applications do not properly protect sensitive information, such as passwords or credit card data, leaving it vulnerable to unauthorized access.
+                    </p>
+                </li>
+                <li>
+                    <a href="cmd_i.html" class="topic-link">
+                        <h2>Command Injection</h2>
+                    </a>
+                    <p class="topic-content">
+                        Command injection vulnerabilities allow attackers to execute arbitrary commands on the host system, potentially gaining control or causing significant damage.
+                    </p>
+                </li>
+                <li>
+                    <a href="social.html" class="topic-link">
+                        <h2>Social Engineering</h2>
+                    </a>
+                    <p class="topic-content">
+                        Social engineering is the use of psychological manipulation to trick people into divulging confidential information or performing actions that compromise security.
+                    </p>
+                </li>
+            </ul>
+            
+        </ul>
+    </section>
+
+
+    <footer>
+        <p>&copy; 2024 Security Vulnerabilities Showcase</p>
+    </footer>
+
+    <script>
+        // Clock Update
+        function updateTime() {
+            const now = new Date();
+
+            const aestTime = new Date(now.toLocaleString("en-US", { timeZone: "Australia/Sydney" }));
+            document.getElementById("aest-time").textContent = aestTime.toLocaleTimeString();
+
+            const utcTime = new Date(now.toLocaleString("en-US", { timeZone: "UTC" }));
+            document.getElementById("utc-time").textContent = utcTime.toLocaleTimeString();
+        }
+
+        setInterval(updateTime, 1000);
+        updateTime();
+
+        function checkOverflow() {
+            const input = document.getElementById("userInput").value;
+            const result = document.getElementById("result");
+
+            const bufferLimit = 20;
+
+            if (input.length > bufferLimit) {
+                result.textContent = "Buffer Overflow Detected! You've gained admin privileges!";
+                result.style.color = "green";
+            } else {
+                result.textContent = "Input accepted, but no buffer overflow detected.";
+                result.style.color = "red";
+            }
+        }
+    </script>
+
+    <script src="script.js"></script>
+
+</body>
+</html>

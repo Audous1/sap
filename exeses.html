@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Security Vulnerabilities Showcase</title>
+    <link rel="stylesheet" href="exeses.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="index.html#home">Home</a></li>
+                <li><a href="about.html">About Us</a></li>
+                <li class="dropdown">
+                    <a href="#" class="dropbtn">Vulnerabilities</a>
+                    <div class="dropdown-content">
+                        <a href="o.html">Buffer Overflow</a>
+                        <a href="sequel.html">SQL Injection</a>
+                        <a href="exeses.html">Cross-Site Scripting (XSS)</a>
+                        <a href="csrf.html">Cross-Site Request Forgery (CSRF)</a>
+                        <a href="authentication.html">Broken Authentication</a>
+                        <a href="cmd_i.html">Command Injection</a>
+                        <a href="social.html">Social Engineering</a>
+                    </div>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <section id="xss-introduction" class="section">
+        <h1>Exploiting Trust: Understanding Cross-Site Scripting (XSS)</h1>
+        <div class="content">
+            <h2>What is Cross-Site Scripting (XSS)?</h2>
+            <p>
+                XSS is a exploitation that allows attackers to inject malicious scripts into web pages viewed by other users. Usually through the <code> script </code> tag in HTML When executed, these scripts can access cookies, session tokens, or other sensitive information stored by the browser, potentially enabling an attacker to impersonate a user or perform unwanted actions on their behalf.
+            </p>
+            <p>
+                XSS vulnerabilities typically arise from improper handling of user input, similar to an SQL Injection actually. Sometimes the designer does not sanitise their code properly and it leads to this. 
+                
+                We need to know about the three main types of XSS: Stored, Reflected, and DOM-based XSS, each differing in the way the malicious script is delivered and executed.
+            </p>
+
+            <img src="script.png" class="icon">
+        </div>
+    </section>
+
+    <section id="xss-sandbox" class="section">
+        <h2>XSS Sandbox: Try Injecting Script</h2>
+        <p>
+            Enter different inputs to observe how an XSS vulnerability works. <strong>Warning</strong>: This is a safe, simulated environment. Do not attempt this outside of educational setups.
+        </p>
+    
+        <!-- XSS Example 1: Reflected XSS -->
+        <div class="sandbox">
+            <h3>Example 1: Reflected XSS</h3>
+            <input type="text" id="reflectedInput" placeholder="Enter a name" />
+            <button onclick="checkReflectedXSS()">Submit</button>
+            <p id="reflectedResult"></p>
+        </div>
+    
+        <!-- XSS Example 2: Stored XSS -->
+        <div class="sandbox">
+            <h3>Example 2: Stored XSS</h3>
+            <input type="text" id="storedInput" placeholder="Enter a message" />
+            <button onclick="storeMessage()">Store Message</button>
+            <p id="storedMessages"></p>
+        </div>
+    
+        <!-- XSS Example 3: DOM-based XSS -->
+        <div class="sandbox">
+            <h3>Example 3: DOM-based XSS</h3>
+            <a href="javascript:void(0)" onclick="runDOMBasedXSS()">Click here for a special message!</a>
+            <p id="domResult"></p>
+        </div>
+    
+        <!-- XSS Example 4: Event-based XSS -->
+        <div class="sandbox">
+            <h3>Example 4: Event-based XSS</h3>
+            <p>Hover over the button to trigger the script:</p>
+            <button id="eventXSS" onmouseover="triggerEventXSS()">Hover over me!</button>
+            <p id="eventResult"></p>
+        </div>
+    
+        <!-- XSS Example 5: Attribute Injection XSS -->
+        <div class="sandbox">
+            <h3>Example 5: Attribute Injection XSS</h3>
+            <input type="text" id="attributeXSS" placeholder="Enter your URL" />
+            <button onclick="injectAttributeXSS()">Load URL</button>
+            <iframe id="attributeFrame" src="about:blank" width="300" height="150"></iframe>
+        </div>
+    </section>
+
+    
+
+    <section id="xss-prevention" class="section">
+        <h2><img src="sword-icon.svg" alt="Sword Icon" class="icon">
+            Preventing Cross-Site Scripting (XSS)</h2>
+        <p>
+            Cross-Site Scripting (XSS) vulnerabilities can lead to various malicious activities, such as data theft, session hijacking, and unauthorized actions on behalf of the user. To secure your applications, implementing the following measures is crucial.
+        </p>
+        <ul>
+            <li><strong>Escape User Input:</strong>
+                <p>
+                    Any user-generated content or input that will be displayed on a webpage must be carefully escaped before rendering in HTML. This prevents the browser from interpreting user input as code. For example:
+                </p>
+                <ul>
+                    <li>Replace `<` with `&lt;` and `>` with `&gt;` to prevent HTML tags from being rendered.</li>
+                    <li>Convert `&` to `&amp;` to prevent character encoding confusion.</li>
+                    <li>Apply escaping consistently to other symbols (like quotation marks) depending on context (HTML attributes, JavaScript, or CSS).</li>
+                </ul>
+                <p>Properly escaping user input ensures that content is treated as plain text rather than executable code.</p>
+            </li>
+            
+            <li><strong>Content Security Policy (CSP):</strong>
+                <p>
+                    A Content Security Policy (CSP) is a powerful security feature that helps prevent XSS attacks by specifying allowed sources for content on a webpage. By configuring CSP headers, you can control where scripts, styles, and media can load from. For example:
+                </p>
+                <pre><code>
+    Content-Security-Policy: default-src 'self'; script-src 'self' https://trusted-cdn.com
+                </code></pre>
+                <p>
+                    In this example, only scripts from the same origin and from `https://trusted-cdn.com` are allowed. CSP can significantly reduce the risk of XSS by limiting the domains from which scripts can be executed, thus blocking unauthorized external scripts.
+                </p>
+            </li>
+            
+            <li><strong>Input Validation:</strong>
+                <p>
+                    Before processing or displaying user inputs, validate them to ensure they conform to expected formats and values. For instance, if a field expects an email address, use regular expressions to allow only valid email formats. This approach helps prevent users from injecting unwanted content by restricting input to predefined rules.
+                </p>
+                <p>
+                    Additionally, sanitize inputs by removing or encoding special characters that could be used in XSS attacks. Libraries or frameworks like OWASP’s Java HTML Sanitizer can assist with robust validation and sanitization.
+                </p>
+            </li>
+            
+            <li><strong>Use HTTP-Only Cookies:</strong>
+                <p>
+                    HTTP-only cookies are a security feature that restricts access to cookies from JavaScript, making them inaccessible to client-side scripts. By setting cookies as HTTP-only, you can prevent attackers from accessing session information using XSS attacks. For example, to set an HTTP-only cookie:
+                </p>
+                <pre><code>
+    Set-Cookie: sessionId=abc123; HttpOnly; Secure
+                </code></pre>
+                <p>This simple measure adds a layer of security to protect user sessions and sensitive data.</p>
+            </li>
+            
+            <li><strong>Implement Secure Coding Practices:</strong>
+                <p>
+                    Secure coding is essential to XSS prevention. Avoid using direct user input in scripts, URLs, and elements that could execute code. Use frameworks and libraries that handle encoding and escaping by default, such as Angular or React, which apply encoding automatically. Some best practices include:
+                </p>
+                <ul>
+                    <li><strong>Output Encoding:</strong> Use libraries or frameworks that encode outputs by default to prevent XSS in rendered pages.</li>
+                    <li><strong>Parameterized Queries:</strong> Never directly include user input in queries, scripts, or URLs. Instead, use placeholders or parameterized queries.</li>
+                    <li><strong>Regular Security Audits:</strong> Regularly scan and test your code for vulnerabilities using security auditing tools, especially after updates or changes.</li>
+                </ul>
+                <p>Following secure coding practices ensures that applications handle user input safely, protecting against XSS attacks.</p>
+            </li>
+        </ul>
+    </section>
+    
+
+    <script>
+        // Reflected XSS Example
+        function checkReflectedXSS() {
+            const input = document.getElementById("reflectedInput").value;
+            const result = document.getElementById("reflectedResult");
+            result.innerHTML = `Hello, ${input}!`; // Vulnerable to reflected XSS
+        }
+
+        // Stored XSS Example
+        let messages = []; // Stores messages in an array for simulation
+        function storeMessage() {
+            const message = document.getElementById("storedInput").value;
+            messages.push(message);
+            displayMessages();
+        }
+
+        function displayMessages() {
+            const storedMessages = document.getElementById("storedMessages");
+            storedMessages.innerHTML = "";
+            messages.forEach((msg) => {
+                storedMessages.innerHTML += `<p>${msg}</p>`; // Vulnerable to stored XSS
+            });
+        }
+
+        // DOM-based XSS Example
+        function runDOMBasedXSS() {
+            const domResult = document.getElementById("domResult");
+            const params = new URLSearchParams(window.location.search);
+            const message = params.get("message");
+            domResult.innerHTML = message || "This is a safe message."; // Vulnerable to DOM-based XSS
+        }
+
+        // Example 4: Event-based XSS
+        function triggerEventXSS() {
+            document.getElementById("eventResult").innerHTML = "You triggered an event-based XSS!";
+        }
+
+        // Example 5: Attribute Injection XSS
+        function injectAttributeXSS() {
+            const url = document.getElementById("attributeXSS").value;
+            document.getElementById("attributeFrame").src = url;
+        }
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,451 @@
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f8f8f8;
+    color: #333;
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    background-color: #a50026; /* Crimson color */
+    padding: 10px 20px;
+    text-align: center;
+}
+
+nav ul {
+    list-style-type: none;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+}
+
+nav ul li {
+    margin: 0 15px;
+    position: relative;
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: #fff;
+    font-weight: bold;
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropbtn {
+    background-color: #a50026;
+    color: #fff;
+    padding: 20px;
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
+}
+
+.dropdown-content {
+    position: absolute;
+    top: 35px;
+    display: none;
+    position: absolute;
+    background-color: #B22222;
+    min-width: 160px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+}
+
+.dropdown-content a {
+    position: relative;
+    color: #fff;
+    padding: 15px 16px;
+    text-decoration: none;
+    display: block;
+    border: 1px solid grey;
+
+}
+
+footer {
+    background-color: #a50026;
+    color: #fff;
+    padding: 10px;
+    text-align: center;
+}
+
+/* Section Styling */
+.section {
+    margin: 20px auto;
+    padding: 20px;
+    width: 80%;
+    max-width: 800px;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    border: 1px solid #ddd;
+    animation: fadeIn 1s ease-in;
+}
+
+.section h2 {
+    font-size: 1.8em;
+    background: linear-gradient(to right, #1a73e8, #4285f4);
+    -webkit-background-clip: text;
+    color: transparent;
+    margin-bottom: 15px;
+}
+
+.section p {
+    line-height: 1.6;
+    font-size: 1.1em;
+}
+
+.section ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+.section ul li {
+    padding: 10px;
+    background: linear-gradient(45deg, #f8fafc, #d9e2ec);
+    margin-bottom: 10px;
+    border-radius: 8px;
+    transition: transform 0.3s;
+}
+
+.section ul li:hover {
+    transform: translateX(5px);
+    background: #e3effd;
+}
+
+/* Button Styling */
+button {
+    padding: 10px 20px;
+    background: linear-gradient(45deg, #ff6b6b, #f06595);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 1em;
+    cursor: pointer;
+    transition: background 0.3s, transform 0.3s;
+}
+
+button:hover {
+    background: linear-gradient(45deg, #fa5252, #e64980);
+    transform: scale(1.05);
+}
+
+/* Animation */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Sandbox Styling */
+.sandbox {
+    margin-top: 20px;
+    padding: 15px;
+    background: linear-gradient(135deg, #d4f1f4, #8bc6ec);
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border: 1px solid #ddd;
+    animation: fadeIn 1s ease-in;
+}
+
+.sandbox h3 {
+    font-size: 1.5em;
+    margin-bottom: 10px;
+    color: #2b7a78;
+}
+
+.sandbox p {
+    font-size: 1em;
+    color: #555;
+}
+
+input[type="text"] {
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    width: 60%;
+    margin-right: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.3s;
+}
+
+input[type="text"]:focus {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+   /* General Section Styling */
+   #csrf-unique-impact {
+    background: linear-gradient(135deg, #8a2387, #e94057, #f27121);
+    color: #fff;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.2);
+    max-width: 800px;
+    margin: 40px auto;
+    transition: all 0.3s ease;
+    font-family: 'Roboto', sans-serif;
+    opacity: 0;
+    animation: fadeIn 1s forwards;
+}
+
+/* Title Styling */
+#csrf-unique-impact h2 {
+    font-size: 28px;
+    text-align: center;
+    margin-bottom: 20px;
+    color: #ffebcd;
+    font-weight: bold;
+}
+
+/* Subheading Styling */
+#csrf-unique-impact h3 {
+    color: #ffde7d;
+    font-size: 22px;
+    margin-top: 20px;
+    transition: color 0.3s;
+}
+
+/* Paragraph and List Styling */
+#csrf-unique-impact p, #csrf-unique-impact ul {
+    line-height: 1.6;
+    font-size: 16px;
+}
+
+#csrf-unique-impact ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+#csrf-unique-impact ul li {
+    margin: 10px 0;
+    padding: 10px;
+    background-color: rgba(241, 31, 31, 0.1);
+    border-radius: 8px;
+    transition: transform 0.3s;
+}
+
+#csrf-unique-impact ul li:hover {
+    transform: translateX(10px);
+}
+
+/* Animation */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Hover effects */
+#csrf-unique-impact:hover {
+    transform: scale(1.03);
+}
+
+#csrf-unique-impact h3:hover {
+    color: #ffd700;
+}
+
+.icon {
+    width: 30px; 
+    height: 30px;
+}
+
+.dropbtn {
+    background-color: #a50026;
+    color: #fff;
+    padding: 20px;
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
+}
+
+.dropdown-content {
+    position: absolute;
+    top: 35px;
+    display: none;
+    position: absolute;
+    background-color: #B22222;
+    min-width: 160px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+}
+
+.dropdown-content a {
+    position: relative;
+    color: #fff;
+    padding: 15px 16px;
+    text-decoration: none;
+    display: block;
+    border: 1px solid grey;
+
+}
+
+h2 .icon {
+    width: 30px; 
+    height: 30px;
+}
+
+.dropdown-content a:hover {
+    background-color: rgb(108, 16, 31);
+    color: pink;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+.sandbox {
+    border: 1px solid #dfe3e8;
+    border-radius: 10px;
+    padding: 20px;
+    background: linear-gradient(135deg, #f9f9fb, #f1f1f6);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.3s ease;
+}
+
+h3 {
+    font-size: 22px;
+    color: #333;
+    margin-bottom: 10px;
+    font-family: 'Roboto', sans-serif;
+}
+
+p {
+    font-size: 16px;
+    color: #555;
+}
+
+input[type="text"], input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-sizing: border-box;
+    transition: border-color 0.3s ease;
+}
+
+input[type="text"]:focus, input[type="password"]:focus {
+    border-color: #1a73e8;
+}
+
+button {
+    background: #1a73e8;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 15px;
+    transition: background 0.3s ease;
+}
+
+button:hover {
+    background: #155bb5;
+}
+
+/* Styling for password strength bar */
+.strength-container {
+    height: 10px;
+    width: 100%;
+    background: #e0e0e0;
+    border-radius: 5px;
+    margin-top: 10px;
+}
+
+.strength-bar {
+    height: 100%;
+    width: 0%;
+    background: #ff4b2b;
+    border-radius: 5px;
+    transition: width 0.3s ease, background 0.3s ease;
+}
+
+#strengthMessage {
+    margin-top: 10px;
+    font-weight: bold;
+    font-size: 16px;
+    padding: 8px;
+    border-radius: 5px;
+    text-align: center;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Colors based on password strength */
+#strengthMessage[data-strength="Weak"] {
+    background-color: #ffcccc;
+    color: #cc0000;
+}
+
+#strengthMessage[data-strength="Medium"] {
+    background-color: #ffecb3;
+    color: #cc9900;
+}
+
+#strengthMessage[data-strength="Strong"] {
+    background-color: #ccffcc;
+    color: #009900;
+}
+
+#strengthMessage[data-strength="Very Strong"] {
+    background-color: #cce5ff;
+    color: #0066cc;
+}
+
+
+.section {
+    max-width: 800px;
+    background: linear-gradient(135deg, #f7faff, #eef2ff);
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    margin: 20px auto;
+    animation: fadeIn 0.8s ease-in-out;
+}
+
+.section h2 {
+    font-size: 28px;
+    color: #1a73e8;
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+.section h3 {
+    font-size: 24px;
+    color: #0056b3;
+    margin-top: 20px;
+}
+
+.section p, .section ul {
+    color: #333;
+    line-height: 1.6;
+    font-size: 16px;
+}
+
+.section ul {
+    margin: 15px 0;
+    padding-left: 20px;
+}
+
+.section ul li {
+    margin-bottom: 10px;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.logo {
+    width: 625px;
+}

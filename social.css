@@ -1,0 +1,271 @@
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f8f8f8;
+    color: #333;
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    background-color: #a50026; /* Crimson color */
+    padding: 10px 20px;
+    text-align: center;
+}
+
+nav ul {
+    list-style-type: none;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+}
+
+nav ul li {
+    margin: 0 15px;
+    position: relative;
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: #fff;
+    font-weight: bold;
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropbtn {
+    background-color: #a50026;
+    color: #fff;
+    padding: 20px;
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
+}
+
+.dropdown-content {
+    position: absolute;
+    top: 35px;
+    display: none;
+    position: absolute;
+    background-color: #B22222;
+    min-width: 160px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+}
+
+.dropdown-content a {
+    position: relative;
+    color: #fff;
+    padding: 15px 16px;
+    text-decoration: none;
+    display: block;
+    border: 1px solid grey;
+
+}
+
+.dropdown-content a:hover {
+    background-color: rgb(108, 16, 31);
+    color: pink;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+/* Main Content Styling */
+section {
+    max-width: 800px;
+    margin: 20px auto;
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Subsection Styling */
+.subsection {
+    margin-bottom: 20px;
+    padding: 15px;
+    background-color: #f9f9f9;
+    border-left: 5px solid #007bff;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+}
+
+.subsection h2 {
+    color: #0056b3;
+    font-size: 22px;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+.subsection p {
+    color: #555;
+    line-height: 1.6;
+    margin-bottom: 10px;
+}
+
+.subsection ul {
+    padding-left: 20px;
+    margin: 10px 0;
+    color: #333;
+}
+
+.subsection ul li {
+    margin-bottom: 5px;
+}
+
+/* List Style for Prevention Techniques */
+.subsection ul li {
+    background-color: #ffffff;
+    padding: 10px;
+    margin: 5px 0;
+    border-radius: 5px;
+    border-left: 5px solid #28a745;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+/* Header and Subheader Styling */
+section h1, .subsection h2 {
+    text-align: center;
+    text-transform: uppercase;
+    color: #a50026;
+}
+
+section h1 {
+    font-size: 28px;
+    margin-bottom: 20px;
+}
+
+.subsection h2 {
+    font-size: 22px;
+}
+
+/* Code Styling */
+code {
+    background-color: #f7f7f7;
+    padding: 2px 4px;
+    border-radius: 3px;
+    font-size: 0.95em;
+    color: #d63384;
+}
+
+/* Boxed Paragraphs for Highlighting */
+.highlight {
+    background-color: #f1f1f1;
+    padding: 15px;
+    border-radius: 5px;
+    margin: 10px 0;
+    font-weight: bold;
+}
+
+/* Footer */
+footer {
+    background-color: #a50026;
+    color: #fff;
+    padding: 10px;
+    text-align: center;
+}
+
+/* General Section Styling */
+#phishing-case-study {
+    max-width: 800px;
+    margin: 20px auto;
+    background-color: #ffffff;
+    padding: 25px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+    text-align: left;
+}
+
+/* Header Styling */
+#phishing-case-study h2 {
+    color: #a50026;
+    font-size: 28px;
+    text-align: center;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+}
+
+/* Subsection Styling */
+#phishing-case-study h3 {
+    color: #0056b3;
+    font-size: 22px;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+}
+
+#phishing-case-study p {
+    color: #555;
+    line-height: 1.6;
+    margin-bottom: 15px;
+}
+
+/* List Styling for Prevention Techniques */
+#phishing-case-study ul {
+    padding-left: 20px;
+    list-style-type: disc;
+    margin: 15px 0;
+}
+
+#phishing-case-study ul li {
+    background-color: #f9f9f9;
+    padding: 10px;
+    margin: 5px 0;
+    border-radius: 5px;
+    border-left: 5px solid #28a745;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+/* Highlighted Box Styling */
+#phishing-case-study .highlight {
+    background-color: #f1f1f1;
+    padding: 15px;
+    border-radius: 5px;
+    margin: 10px 0;
+    border-left: 4px solid #d63384;
+    font-weight: bold;
+}
+
+/* Callout Box for Psychological Manipulation Techniques */
+#phishing-case-study .content {
+    background-color: #fefefe;
+    padding: 15px;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-left: 4px solid #007bff;
+    margin-top: 10px;
+}
+
+/* Code Styling */
+code {
+    background-color: #f7f7f7;
+    padding: 2px 4px;
+    border-radius: 3px;
+    font-size: 0.95em;
+    color: #d63384;
+}
+
+.image-container {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.image-container img {
+    max-width: 350px;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+}
+

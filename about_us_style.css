@@ -1,0 +1,246 @@
+/* General reset */
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    font-family: Arial, sans-serif;
+    background-color: #f8f8f8;
+
+}
+
+
+
+nav ul {
+    list-style-type: none;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    margin: 0;
+}
+
+nav ul li {
+    margin: 0 15px;
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: #fff;
+    font-weight: bold;
+}
+
+/* Dropdown menu styles */
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropbtn {
+    background-color: #a50026;
+    color: #fff;
+    padding: 20px;
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
+}
+
+.dropdown-content {
+    position: absolute;
+    top: 35px;
+    display: none;
+    background-color: #B22222;
+    min-width: 160px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+}
+
+.dropdown-content a {
+    color: #fff;
+    padding: 15px 16px;
+    text-decoration: none;
+    display: block;
+    border: 1px solid grey;
+}
+
+.dropdown-content a:hover {
+    background-color: rgb(108, 16, 31);
+    color: pink;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+/* About Us section styles */
+.section {
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.section h2 {
+    color: #a50026;
+    font-size: 28px;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.opening-p {
+    line-height: 1.6;
+    margin-bottom: 20px;
+    font-size: 18px;
+    color: #555;
+}
+
+/* Quote styling */
+.quote {
+    font-style: italic;
+    background-color: #f3f3f3;
+    border-left: 4px solid #a50026;
+    padding: 15px 20px;
+    margin: 20px 0;
+    color: #333;
+    font-size: 17px;
+}
+
+
+
+
+/* Quotes Section */
+.quotes-section {
+    margin: 30px 0;
+    padding: 20px;
+    background-color: #f2f2f2;
+    border-left: 6px solid #a50026;
+    border-radius: 5px;
+}
+
+/* Quote Styling */
+.quote {
+    font-style: italic;
+    font-size: 20px;
+    color: #333;
+    text-align: center;
+    line-height: 1.6;
+    margin: 20px 0;
+    position: relative;
+    padding: 20px;
+    font-family: Georgia, 'Times New Roman', serif;
+}
+
+/* Add quotation marks as decorative elements */
+
+
+footer {
+    background-color: #a50026;
+    color: #fff;
+    padding: 10px;
+    text-align: center;
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f8f8f8;
+    color: #333;
+    margin: 0;
+    padding: 0;
+}
+
+
+nav ul {
+    list-style-type: none;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+}
+
+nav ul li {
+    margin: 0 15px;
+    position: relative;
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: #fff;
+    font-weight: bold;
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropbtn {
+    background-color: #a50026;
+    color: #fff;
+    padding: 20px;
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
+}
+
+.dropdown-content {
+    position: absolute;
+    top: 35px;
+    display: none;
+    position: absolute;
+    background-color: #B22222;
+    min-width: 160px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+}
+
+.dropdown-content a {
+    position: relative;
+    color: #fff;
+    padding: 15px 16px;
+    text-decoration: none;
+    display: block;
+    border: 1px solid grey;
+
+}
+
+.dropdown-content a:hover {
+    background-color: rgb(108, 16, 31);
+    color: pink;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+.section {
+    padding: 40px;
+    text-align: center;
+}
+
+header {
+    background-color: #a50026;
+    color: #ffffff;
+    width: 100%;
+    padding: 20px;
+    text-align: center;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 2em;
+}
+
+header p {
+    font-size: 1.1em;
+    margin: 5px 0 0;
+}

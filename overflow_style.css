@@ -1,0 +1,611 @@
+/* General Styling */
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f8f8f8;
+    color: #333;
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    background-color: #a50026; /* Crimson color */
+    padding: 10px 20px;
+    text-align: center;
+}
+
+nav ul {
+    list-style-type: none;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+}
+
+nav ul li {
+    margin: 0 15px;
+    position: relative;
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: #fff;
+    font-weight: bold;
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropbtn {
+    background-color: #a50026;
+    color: #fff;
+    padding: 20px;
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
+}
+
+.dropdown-content {
+    position: absolute;
+    top: 35px;
+    display: none;
+    position: absolute;
+    background-color: #B22222;
+    min-width: 160px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+}
+
+.dropdown-content a {
+    position: relative;
+    color: #fff;
+    padding: 15px 16px;
+    text-decoration: none;
+    display: block;
+    border: 1px solid grey;
+
+}
+
+.dropdown-content a:hover {
+    background-color: rgb(108, 16, 31);
+    color: pink;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+/* Section Styling */
+.section {
+    max-width: 800px;
+    margin: 20px auto;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+h1, h2 {
+    color: #0056b3;
+    margin-bottom: 10px;
+}
+
+.content p {
+    line-height: 1.6;
+    margin-bottom: 10px;
+    color: #555;
+}
+
+ul {
+    padding-left: 20px;
+    color: #555;
+}
+
+li {
+    margin: 5px 0;
+}
+
+/* Code Styling */
+code {
+    background-color: #eee;
+    padding: 2px 4px;
+    border-radius: 4px;
+    color: #d63384;
+    font-family: "Courier New", Courier, monospace;
+    font-size: 0.95em;
+}
+
+/* Specific Section Styling */
+#buffer-overflow-intro {
+    border-left: 5px solid #0056b3;
+}
+
+#buffer-overflow-explained {
+    border-left: 5px solid #d63384;
+}
+
+#process-memory {
+    border-left: 5px solid #28a745;
+}
+
+#stack-role {
+    border-left: 5px solid #6f42c1;
+}
+
+footer {
+    background-color: #a50026;
+    color: #fff;
+    padding: 10px;
+    text-align: center;
+}
+
+/* Buffer Overflow Simulation Section Styling */
+#buffer-overflow-section {
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 30px;
+    max-width: 600px;
+    margin: 0 auto;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+#buffer-overflow-section h2 {
+    color: #333;
+    font-size: 24px;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+#buffer-overflow-section p {
+    font-size: 16px;
+    color: #666;
+    margin-bottom: 20px;
+}
+
+#buffer-overflow-section input[type="text"] {
+    width: 80%;
+    max-width: 400px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+
+#buffer-overflow-section button {
+    padding: 10px 20px;
+    font-size: 16px;
+    color: #fff;
+    background-color: #007bff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#buffer-overflow-section button:hover {
+    background-color: #0056b3;
+}
+
+#result {
+    font-size: 18px;
+    margin-top: 20px;
+}
+
+#result.success {
+    color: #28a745;
+}
+
+#result.fail {
+    color: #dc3545;
+}
+
+/* Styling for the Code Sample */
+.code-sample {
+    background-color: #2d2d2d;
+    color: #f8f8f2;
+    padding: 20px;
+    margin-top: 20px;
+    border-radius: 8px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    font-family: monospace;
+    overflow-x: auto;
+}
+
+.code-sample h3 {
+    color: #ff79c6;
+    margin-bottom: 10px;
+    font-size: 20px;
+}
+
+.code-sample pre {
+    margin: 0;
+    padding: 10px;
+    line-height: 1.5;
+    color: #f8f8f2;
+    font-size: 14px;
+}
+
+.code-sample code {
+    font-family: Consolas, monospace;
+    display: block;
+    white-space: pre;
+    text-align: left;
+    border: 2px solid #0056b3;
+}
+
+/* Syntax Highlighting */
+.code-sample .keyword {
+    color: #ff79c6;
+}
+
+.code-sample .function {
+    color: #50fa7b;
+}
+
+.code-sample .comment {
+    color: #6272a4;
+    font-style: italic;
+}
+
+.stack-image {
+    display: block;
+    margin: 0 auto;
+    width: 80%; /* Adjust width as needed */
+    max-width: 500px; /* Limits size on larger screens */
+}
+
+#buffer-overflow-section-2 {
+    background-color: #eef2f3;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 30px;
+    max-width: 700px;
+    margin: 30px auto;
+    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.15);
+    text-align: left;
+}
+
+#buffer-overflow-section-2 h2 {
+    color: #1a1a1a;
+    font-size: 26px;
+    margin-bottom: 20px;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    text-align: center;
+}
+
+#buffer-overflow-section-2 .content {
+    font-size: 16px;
+    color: #555;
+}
+
+#buffer-overflow-section-2 p {
+    font-size: 16px;
+    color: #444;
+    margin-bottom: 20px;
+}
+
+#buffer-overflow-section-2 code {
+    font-size: 14px; /* Smaller font for inline code */
+    padding: 2px 4px; /* Reduced padding */
+    background-color: #eaeaea;
+    border-radius: 3px;
+    color: #d63384;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+#buffer-overflow-section-2 pre code {
+    font-size: 13px; /* Smaller font for block code */
+    padding: 8px 10px;
+    line-height: 1.4;
+}
+
+#buffer-overflow-section-2 pre {
+    overflow-x: auto;
+    background-color: #f5f5f5;
+    border: 1px solid #ccc;
+    padding: 12px;
+    border-radius: 6px;
+    max-width: 100%;
+    font-size: 14px; /* Consistent font size for pre blocks */
+}
+
+#buffer-overflow-section-2 .content {
+    line-height: 1.6; /* Ensures readability for general text */
+}
+
+#buffer-overflow-section-2 ol {
+    margin: 20px 0;
+    padding-left: 20px;
+    color: #333;
+}
+
+#buffer-overflow-section-2 li {
+    margin: 10px 0;
+}
+
+#buffer-overflow-section-2 h3 {
+    color: #333;
+    font-size: 20px;
+    margin-bottom: 15px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* Advanced Buffer Overflow Section Styling */
+#buffer-overflow-section-2 {
+    background-color: #f4f4fc; /* Light lavender background for distinction */
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 30px;
+    max-width: 600px;
+    margin: 20px auto;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.15);
+    text-align: center;
+}
+
+#buffer-overflow-section-2 h2 {
+    color: #333;
+    font-size: 24px;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+#buffer-overflow-section-2 p {
+    font-size: 16px;
+    color: #666;
+    margin-bottom: 20px;
+}
+
+/* Advanced Input and Button Styling */
+#advancedUserInput {
+    width: 80%;
+    max-width: 400px;
+    padding: 12px;
+    border: 2px solid #007bff; /* Border color to match button */
+    border-radius: 4px;
+    font-size: 16px;
+    margin-bottom: 10px;
+    outline: none;
+    transition: border-color 0.3s ease;
+}
+
+#advancedUserInput:focus {
+    border-color: #0056b3; /* Darker blue on focus */
+}
+
+#buffer-overflow-section-2 button {
+    padding: 10px 20px;
+    font-size: 16px;
+    color: #fff;
+    background-color: #007bff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+#buffer-overflow-section-2 button:hover {
+    background-color: #0056b3;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+#advancedResult {
+    font-size: 16px;
+    margin-top: 15px;
+    font-weight: bold;
+}
+
+/* Styling for success and error messages */
+#advancedResult.success {
+    color: green;
+}
+
+#advancedResult.error {
+    color: red;
+}
+
+#buffer-overflow-section-3 {
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 30px;
+    max-width: 600px;
+    margin: 0 auto;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+#buffer-overflow-section-3 h2 {
+    color: #333;
+    font-size: 24px;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+#buffer-overflow-section-3 input[type="text"] {
+    width: 80%;
+    max-width: 400px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+
+#buffer-overflow-section-3 button {
+    padding: 10px 20px;
+    font-size: 16px;
+    color: #fff;
+    background-color: #007bff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#buffer-overflow-section-3 button:hover {
+    background-color: #0056b3;
+}
+
+#buffer-overflow-section-3 .content {
+    word-wrap: break-word;
+    overflow-wrap: anywhere;
+}
+
+#buffer-overflow-section-3 pre {
+    white-space: pre-wrap; /* Allows code to wrap within the box */
+    overflow-x: auto; /* Adds horizontal scrolling if needed */
+    max-width: 100%; /* Limits code width to container width */
+    padding: 10px;
+    background-color: #f5f5f5;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+#buffer-overflow-section-3 .code-sample pre {
+    overflow-x: auto; /* Enables horizontal scroll for long code lines */
+    max-width: 100%; /* Ensures it doesn’t exceed container */
+    padding: 10px;
+    background-color: #2d2d2d; /* Darker background for code readability */
+    color: #ffffff; /* White text for code on dark background */
+    border-radius: 5px;
+}
+
+*,
+*:before,
+*:after {
+    box-sizing: border-box;
+}
+
+#buffer-overflow-section-3 {
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 30px;
+    max-width: 600px;
+    margin: 0 auto;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+#buffer-overflow-section-3 h2 {
+    color: #333;
+    font-size: 24px;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+#buffer-overflow-section-3 .content {
+    word-wrap: break-word;
+    overflow-wrap: anywhere;
+}
+
+#buffer-overflow-section-3 .code-sample pre {
+    white-space: pre-wrap;
+    overflow-x: auto;
+    max-width: 100%;
+    padding: 10px;
+    background-color: #2d2d2d;
+    color: #ffffff;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+#buffer-overflow-section-3 input[type="text"] {
+    width: 80%;
+    max-width: 400px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+
+#buffer-overflow-section-3 button {
+    padding: 10px 20px;
+    font-size: 16px;
+    color: #fff;
+    background-color: #007bff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#buffer-overflow-section-3 button:hover {
+    background-color: #0056b3;
+}
+
+#protective-measures {
+    background-color: #f0f8ff;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 30px;
+    max-width: 800px;
+    margin: 40px auto;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+#protective-measures h2 {
+    font-size: 28px;
+    color: #333;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 25px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+#protective-measures .icon {
+    width: 30px;
+    height: 30px;
+    margin-right: 10px;
+}
+
+.measure {
+    background-color: #ffffff;
+    border-radius: 6px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0px 3px 8px rgba(0, 0, 0, 0.1);
+}
+
+.measure h3 {
+    font-size: 20px;
+    color: #0056b3;
+    margin-bottom: 10px;
+}
+
+.measure p {
+    font-size: 16px;
+    color: #555;
+    line-height: 1.6;
+}
+
+code {
+    background-color: #f7f7f7;
+    padding: 2px 4px;
+    border-radius: 3px;
+    font-size: 0.95em;
+    color: #d63384;
+}
+

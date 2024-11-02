@@ -1,0 +1,269 @@
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f8f8f8;
+    color: #333;
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    background-color: #a50026; /* Crimson color */
+    padding: 10px 20px;
+    text-align: center;
+}
+
+nav ul {
+    list-style-type: none;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+}
+
+nav ul li {
+    margin: 0 15px;
+    position: relative;
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: #fff;
+    font-weight: bold;
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropbtn {
+    background-color: #a50026;
+    color: #fff;
+    padding: 20px;
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
+}
+
+.dropdown-content {
+    position: absolute;
+    top: 35px;
+    display: none;
+    position: absolute;
+    background-color: #B22222;
+    min-width: 160px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+}
+
+.dropdown-content a {
+    position: relative;
+    color: #fff;
+    padding: 15px 16px;
+    text-decoration: none;
+    display: block;
+    border: 1px solid grey;
+
+}
+
+h2 .icon {
+    width: 30px; 
+    height: 30px;
+}
+
+.dropdown-content a:hover {
+    background-color: rgb(108, 16, 31);
+    color: pink;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+/* Section Styling */
+.section {
+    max-width: 800px;
+    margin: 30px auto;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.section h1, .section h2 {
+    color: #007bff; /* Blue headings */
+    margin-bottom: 10px;
+}
+
+.section h2 {
+    border-bottom: 2px solid #007bff;
+    padding-bottom: 5px;
+}
+
+.section p {
+    line-height: 1.6;
+    margin-bottom: 10px;
+}
+
+/* Sandbox Styling */
+.sandbox {
+    background-color: #e9ecef;
+    padding: 20px;
+    border-radius: 8px;
+    margin-top: 20px;
+    text-align: center;
+}
+
+.sandbox h3 {
+    color: #495057;
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+.sandbox input[type="text"] {
+    padding: 10px;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    font-size: 16px;
+    margin-right: 10px;
+    transition: border-color 0.3s;
+}
+
+.sandbox input[type="text"]:focus {
+    border-color: #007bff;
+}
+
+.sandbox button {
+    padding: 10px 20px;
+    font-size: 16px;
+    color: #ffffff;
+    background-color: #007bff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.sandbox button:hover {
+    background-color: #0056b3;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.sandbox p {
+    font-size: 18px;
+    font-weight: bold;
+    margin-top: 15px;
+}
+
+.sandbox p.success {
+    color: #28a745; /* Green for success */
+}
+
+.sandbox p.error {
+    color: #dc3545; /* Red for error */
+}
+
+/* Code Sample Styling */
+.sql-code-sample, .code-sample {
+    background-color: #282c34;
+    color: #ffffff;
+    padding: 15px;
+    margin-top: 20px;
+    border-radius: 8px;
+    font-family: monospace;
+    font-size: 14px;
+    overflow-x: auto;
+}
+
+.sql-code-sample h3 {
+    color: #61dafb;
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+/* XSS Prevention Section Styling */
+#xss-prevention ul {
+    list-style-type: none;
+    padding: 0;
+    color: #333;
+}
+
+#xss-prevention ul li {
+    background-color: #f8f9fa;
+    padding: 15px;
+    margin: 10px 0;
+    border-radius: 6px;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+#xss-prevention ul li strong {
+    color: #007bff;
+}
+
+#xss-prevention ul li p {
+    margin: 5px 0 0;
+}
+
+#xss-prevention ul li code {
+    background-color: #e9ecef;
+    padding: 2px 4px;
+    border-radius: 4px;
+    font-size: 0.95em;
+    color: #d63384;
+}
+
+
+
+
+.sandbox {
+    background-color: #f8f9fa;
+    border: 2px solid #ccc;
+    border-radius: 8px;
+    padding: 20px;
+    margin-top: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.sandbox h3 {
+    font-size: 1.25em;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.sandbox input[type="text"] {
+    width: 80%;
+    max-width: 300px;
+    padding: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.sandbox button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.sandbox button:hover {
+    background-color: #0056b3;
+}
+
+.sandbox p {
+    color: #555;
+    font-size: 1em;
+    margin-top: 15px;
+}

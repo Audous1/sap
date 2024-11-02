@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Security Vulnerabilities Showcase</title>
+    <link rel="stylesheet" href="overflow_style.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="index.html#home">Home</a></li>
+                <li><a href="about.html">About Us</a></li>
+                <li class="dropdown">
+                    <a href="#" class="dropbtn">Vulnerabilities</a>
+                    <div class="dropdown-content">
+                        <a href="o.html">Buffer Overflow</a>
+                        <a href="sequel.html">SQL Injection</a>
+                        <a href="exeses.html">Cross-Site Scripting (XSS)</a>
+                        <a href="csrf.html">Cross-Site Request Forgery (CSRF)</a>
+                        <a href="authentication.html">Broken Authentication</a>
+                        <a href="cmd_i.html">Command Injection</a>
+                        <a href="social.html">Social Engineering</a>
+                    </div>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <section id="buffer-overflow-intro" class="section">
+        <h1>Smashing the Stack: Understanding Buffer Overflow Vulnerabilities</h1>
+        <div class="content">
+            <h2>What is "Smashing the Stack"?</h2>
+            <p>
+                In C programming, a "stack smash" occurs when a program writes more data into a memory buffer than it can hold. This can cause the buffer to overflow into other parts of memory, like the stack, which stores important data like return addresses. Overwriting this data can lead to unexpected program behavior, like jumping to random memory locations or even executing malicious code.
+            </p>
+        </div>
+    </section>
+
+    <section id="buffer-overflow-explained" class="section">
+        <h2>Buffer Overflows Explained</h2>
+        <div class="content">
+            <p>
+                Buffer overflows happen when a program doesn’t check the size of the data being stored. When data is written beyond the buffer’s boundaries, it can overwrite adjacent memory. This paper explains how attackers exploit this to take control of programs, particularly by overwriting return addresses to execute their own code. Knowing basic assembly, virtual memory concepts, and tools like <code>gdb</code> is helpful here, especially if you’re working on an Intel x86 CPU and Linux environment.
+            </p>
+        </div>
+    </section>
+
+    <section id="process-memory" class="section">
+        <h2>Process Memory Organization</h2>
+        <div class="content">
+            <p>
+                A program’s memory is divided into three main regions: Text, Data, and Stack. Here's a quick breakdown:
+            </p>
+            <ul>
+                <li><strong>Text Region</strong>: Stores the code and any read-only data.</li>
+                <li><strong>Data Region</strong>: Stores static and global variables, divided into initialized and uninitialized data.</li>
+                <li><strong>Stack Region</strong>: The most dynamic part, it grows or shrinks to hold function calls, local variables, and return addresses.</li>
+            </ul>
+            <p>Understanding these regions, especially the stack, is essential for grasping how buffer overflows work.</p>
+        </div>
+    </section>
+
+    <section id="stack-role" class="section">
+        <h2>The Stack and Its Role</h2>
+        <img src="stack.svg" alt="Stack Illustration" class="stack-image">
+        <div class="content">
+            <p>
+                The stack is an area of memory that grows and shrinks based on function calls. Each function call pushes a "stack frame" that holds parameters, local variables, and a return address. A special register, the stack pointer (SP), tracks the stack’s top position. A stack overflow modifies this area, altering where the function returns, potentially enabling attackers to inject malicious code.
+            </p>
+        </div>
+    </section>
+
+    <section id="buffer-overflow-section" class="section">
+        <h2>Simple Buffer Overflow Simulation</h2>
+        <p>Try to "overflow" the buffer by inputting a long string:</p>
+        <input type="text" id="userInput" placeholder="Type here..." />
+        <button onclick="checkOverflow()">Submit</button>
+        <p id="result"></p>
+    
+        <!-- Vulnerable Code Sample -->
+        <div class="code-sample">
+            <h3>Sample Vulnerable Code</h3>
+            <pre><code class="language-c">
+    #include <stdio.h>
+    
+    void vulnerable_function() {
+        char buffer[10];
+        printf("Enter your input: ");
+        gets(buffer);
+        printf("You entered: %s\n", buffer);
+    }
+    
+    int main() {
+        vulnerable_function();
+        return 0;
+    }
+            </code></pre>
+        </div>
+    </section>
+
+    <section id="why-gets-is-dangerous" class="section">
+        <h2>Why is <code>gets()</code> Dangerous?</h2>
+        <div class="content">
+            <p>
+                The <code>gets()</code> function is particularly dangerous because it doesn’t check for buffer boundaries. It reads user input until a newline character is found but doesn’t limit the input size, which can easily cause buffer overflows if the input is longer than the allocated buffer. 
+                This can lead to overwriting important memory areas, including return addresses, enabling attackers to execute malicious code. 
+            </p>
+
+            <p> Furthermore, if you read the documentation of <code>gets()</code>, it specifically tells you not to use it, this function should serve as a cautionary tale as to why you should the read the manual pages from time to time.
+            </p>
+        </div>
+    </section>
+    
+    <section id="why-fgets-is-better" class="section">
+        <h2>Using <code>fgets()</code> as a Safer Alternative</h2>
+        <div class="content">
+            <p>
+                The <code>fgets()</code> function is generally safer than <code>gets()</code> because it allows specifying the maximum number of characters to read. This prevents input from exceeding the allocated buffer size, thus reducing the risk of overflow.
+                For example:
+            </p>
+            <pre><code class="language-c">
+        #include <stdio.h>
+        
+        void safe_function() {
+            char buffer[10];
+            printf("Enter your input: ");
+            fgets(buffer, sizeof(buffer), stdin); // Specifies buffer limit
+            printf("You entered: %s\n", buffer);
+        }
+            </code></pre>
+            <p>
+                In this example, <code>fgets()</code> ensures that no more than 9 characters (plus a null terminator) are read, preventing overflow.
+            </p>
+        </div>
+    </section>
+    
+    <section id="why-fgets-still-risky" class="section">
+        <h2>Is <code>fgets()</code> Completely Safe?</h2>
+        <div class="content">
+            <p>
+                Not quite. It's a huge improvement from <code>gets()</code>, however while <code>fgets()</code> is safer, it can still be risky in certain contexts. For instance:
+            </p>
+            <ul>
+                <li>If the buffer size is not properly calculated, <code>fgets()</code> can still allow more input than the program can handle, especially in functions with multiple buffers.</li>
+                <li>Even with a specified buffer limit, improper error handling can lead to vulnerabilities, such as if the input is truncated but the program fails to check for this.</li>
+            </ul>
+            <p>
+                To further enhance security, it's best to combine <code>fgets()</code> with input validation and to use memory-safe libraries when available. In critical systems, consider using more robust functions or libraries that offer better control over memory handling.
+            </p>
+        </div>
+    </section>
+
+    <section id="buffer-overflow-section-2" class="section">
+        <h2>Buffer Overflow Challenge #2</h2>
+        <p>This example requires the use of <code>gdb</code> to discover the return address and calculate the payload.</p>
+        
+        <!-- Explanation of Advanced Overflow -->
+        <div class="content">
+            <h3>Step 1: Analyse the Vulnerable Code</h3>
+            <p>
+                This program includes a function that contains a stack-based buffer overflow. Your goal is to overflow the buffer and overwrite the return address to execute a specific command. You’ll need to use <code>gdb</code> to find the correct return address.
+            </p>
+    
+            <!-- Vulnerable Code Sample -->
+            <div class="code-sample">
+                <h3>Advanced Vulnerable Code</h3>
+                <pre><code class="language-c">
+        #include <stdio.h>
+        #include <string.h>
+    
+        void target_function() {
+            printf("Congratulations! You've redirected the execution flow.\n");
+        }
+    
+        void vulnerable_function(char *input) {
+            char buffer[16];
+            strcpy(buffer, input);  // Unsafe copying of input into a fixed-size buffer
+        }
+    
+        int main(int argc, char *argv[]) {
+            if (argc != 2) {
+                printf("Usage: %s <input>\n", argv[0]);
+                return 1;
+            }
+            vulnerable_function(argv[1]);
+            printf("Normal program execution.\n");
+            return 0;
+        }
+                </code></pre>
+            </div>
+    
+            <h3>Step 2: Using <code>gdb</code> to Discover the Return Address</h3>
+            <p>In <code>gdb</code>, follow these steps:</p>
+            <ol>
+                <li>Compile the code with debugging symbols: <code>gcc -g -fno-stack-protector -z execstack -o advanced_overflow advanced_overflow.c</code>.</li>
+                <li>Open the compiled program in <code>gdb</code>: <code>gdb ./advanced_overflow</code>.</li>
+                <li>Set a breakpoint at the <code>vulnerable_function</code>: <code>break vulnerable_function</code>.</li>
+                <li>Run the program with an input of a large string (e.g., <code>run $(perl -e 'print "A"x32')</code>) and examine the stack with <code>info frame</code> to locate the return address.</li>
+            </ol>
+    
+            <h3>Step 3: Calculating the Payload</h3>
+            <p>Once you’ve found the return address, construct a payload with:</p>
+            <pre><code>
+                [padding to fill buffer] + [return address pointing to <code>target_function</code>]
+            </code></pre>
+            
+            <p>Run the payload in <code>gdb</code> by executing:</p>
+            <pre><code>run $(python3 -c 'print("A"*offset + "return_address")')</code></pre>
+
+            <input type="text" id="advancedUserInput" placeholder="Type your payload here..." />
+            <button onclick="checkAdvancedOverflow()">Submit</button>
+            <p id="advancedResult"></p>
+        </div>
+    </section>
+    
+    <section id="buffer-overflow-section-3" class="section">
+        <h2>Buffer Overflow Challenge #3: Assembly Code Analysis</h2>
+        <p>This example requires analyzing assembly code in <code>gdb</code> to find the exact buffer overflow point and craft a specific payload.</p>
+        
+        <div class="content">
+            <h3>Step 1: Review the Vulnerable C Code</h3>
+            <p>The code below contains a buffer overflow vulnerability. Your goal is to use <code>gdb</code> to identify the correct offset, then exploit it to redirect execution to <code>target_function</code>.</p>
+            
+            <!-- Vulnerable C Code -->
+            <div class="code-sample">
+                <h3>Vulnerable C Code</h3>
+                <pre><code class="language-c">
+    #include <stdio.h>
+    #include <string.h>
+    
+    void target_function() {
+        printf("Success! You've redirected the execution to target_function.\n");
+    }
+    
+    void vulnerable_function(char *input) {
+        char buffer[32];
+        strcpy(buffer, input);  // Overflow occurs here
+    }
+    
+    int main(int argc, char *argv[]) {
+        if (argc != 2) {
+            printf("Usage: %s <input>\n", argv[0]);
+            return 1;
+        }
+        vulnerable_function(argv[1]);
+        printf("Normal program execution.\n");
+        return 0;
+    }
+                </code></pre>
+            </div>
+    
+            <h3>Step 2: Generated Assembly Code</h3>
+            <p>Here's the assembly code generated from the above C program. Analyze the offset from the beginning of <code>buffer</code> to the return address to calculate the exact payload length:</p>
+            
+            <!-- Assembly Code Sample -->
+            <div class="code-sample">
+                <h3>Assembly Code</h3>
+                <pre><code class="language-asm">
+    vulnerable_function:
+        push   %ebp
+        mov    %esp,%ebp
+        sub    $0x40,%esp       ; Allocates space for local variables (64 bytes)
+        mov    0x8(%ebp),%eax   ; Load 'input' parameter
+        mov    %eax,-0x4(%ebp)  ; Store it in buffer area
+        mov    -0x4(%ebp),%eax
+        mov    %eax,%ecx
+        mov    %ecx,-0x30(%ebp) ; Buffer[32]
+        ; strcpy operation vulnerable to overflow
+        leave
+        ret
+                </code></pre>
+            </div>
+    
+            <h3>Step 3: Using <code>gdb</code> to Locate the Return Address</h3>
+            <p>In <code>gdb</code>, use the following steps:</p>
+            <ol>
+                <li>Compile with debugging symbols: <code>gcc -g -fno-stack-protector -z execstack -o assembly_overflow assembly_overflow.c</code>.</li>
+                <li>Run <code>gdb ./assembly_overflow</code> and set a breakpoint at <code>vulnerable_function</code>.</li>
+                <li>Examine the stack frame with <code>info frame</code> and inspect registers to locate the offset from <code>buffer</code> to the return address.</li>
+            </ol>
+    
+            <h3>Step 4: Calculating and Testing the Payload</h3>
+            <p>Once you've identified the correct offset, construct a payload in the form:</p>
+            <pre><code>
+                [padding to reach return address] + [address of target_function]
+            </code></pre>
+    
+            <p>Test your payload below:</p>
+            <input type="text" id="assemblyPayloadInput" placeholder="Enter your payload here..." />
+            <button onclick="checkAssemblyOverflow()">Submit</button>
+            <p id="assemblyResult"></p>
+        </div>
+    </section>  
+    
+    
+    <script>
+        function checkOverflow() {
+            const input = document.getElementById("userInput").value;
+            const result = document.getElementById("result");
+    
+            const bufferLimit = 10;  // buffer size in the C code
+    
+            if (input.length > bufferLimit) {
+                result.textContent = "Buffer Overflow Detected! You've successfully exploited the buffer overflow.";
+                result.style.color = "green";
+            } else {
+                result.textContent = "Input accepted, but no buffer overflow detected. Try a longer input.";
+                result.style.color = "red";
+            }
+        }
+    </script>
+
+<script>
+    function checkAdvancedOverflow() {
+    const input = document.getElementById("advancedUserInput").value;
+    const result = document.getElementById("advancedResult");
+
+    const bufferLimit = 16; // The buffer size in the C code
+    const targetAddress = "0x41414141"; // Example "target address" to simulate exploit
+
+    // Check if input length is greater than buffer limit
+    // and ends with the "target address" for successful overflow
+    if (input.length > bufferLimit && input.endsWith(targetAddress)) {
+        result.textContent = "Buffer Overflow Detected! You've successfully redirected the execution flow.";
+        result.style.color = "green";
+    } else {
+        result.textContent = "Input accepted, but no buffer overflow exploit detected. Make sure you have the correct payload structure.";
+        result.style.color = "red";
+    }
+}
+
+function checkShellcodeOverflow() {
+    const input = document.getElementById("shellcodeUserInput").value;
+    const result = document.getElementById("shellcodeResult");
+
+    const bufferLimit = 32; // Buffer size in C code
+    const shellcodeAddr = "0x42424242"; // Example shellcode address
+
+    // Check for correct buffer overflow with shellcode address
+    if (input.length > bufferLimit && input.includes(shellcodeAddr)) {
+        result.textContent = "Shellcode Injection Detected! Simulated shell access granted.";
+        result.style.color = "green";
+    } else {
+        result.textContent = "Input accepted, but shellcode injection failed. Ensure you’re using the correct payload structure.";
+        result.style.color = "red";
+    }
+}
+
+
+</script>
+
+
+    <footer>
+        <p>&copy; 2024 Security Vulnerabilities Showcase</p>
+    </footer>
+
+    <script>
+
+    </script>
+</body>
+</html>

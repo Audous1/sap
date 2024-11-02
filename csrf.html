@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSRF Vulnerabilities Showcase</title>
+    <link rel="stylesheet" href="csrf.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="index.html#home">Home</a></li>
+                <li><a href="about.html">About Us</a></li>
+                <li class="dropdown">
+                    <a href="#" class="dropbtn">Vulnerabilities</a>
+                    <div class="dropdown-content">
+                        <a href="o.html">Buffer Overflow</a>
+                        <a href="sequel.html">SQL Injection</a>
+                        <a href="exeses.html">Cross-Site Scripting (XSS)</a>
+                        <a href="csrf.html">Cross-Site Request Forgery (CSRF)</a>
+                        <a href="authentication.html">Broken Authentication</a>
+                        <a href="cmd_i.html">Command Injection</a>
+                        <a href="social.html">Social Engineering</a>
+                    </div>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <section id="csrf-intro" class="section">
+        <h2>Introduction to Cross-Site Request Forgery (CSRF)</h2>
+        <p>
+            Cross-Site Request Forgery (CSRF) is a type of attack that forces an authenticated user to submit a request to a web application against their will. Through CSRF, attackers trick users into executing unwanted actions, such as changing account settings or making transactions, without their consent. It's a subtle yet powerful attack that leverages a user's established session.
+        </p>
+    </section>
+
+    <section id="csrf-reason" class="section">
+        <h2>Why Hackers Use CSRF Attacks</h2>
+        <p>
+            Hackers utilise CSRF attacks to exploit the trust that a web application has in an authenticated user's session. By making the user unwittingly submit malicious requests, attackers can take advantage of their access rights, bypassing typical authorization checks. CSRF attacks are particularly dangerous for applications that lack additional verification measures for critical actions.
+        </p>
+    </section>
+
+    <section id="csrf-sandbox" class="section">
+
+<div class="sandbox">
+    <h3>Example 1: Easy CSRF Attack (Token-less)</h3>
+    <p>This example demonstrates a basic CSRF attack where a website does not use CSRF tokens, making it vulnerable. In this attack, any request made by the attacker on behalf of the user will be accepted without validation.</p>
+    <button onclick="simulateEasyCSRF()">Submit Request as User</button>
+    <p id="easyResult"></p>
+    <p><em>Note:</em> In real-world applications, the absence of a CSRF token in requests is a major vulnerability. CSRF tokens act as a unique identifier to distinguish legitimate requests from malicious ones.</p>
+</div>
+
+<div class="sandbox">
+    <h3>Example 2: Medium CSRF Attack (Using Hidden Form)</h3>
+    <p>In this example, a CSRF attack is executed using a hidden form that submits automatically when the page loads. This simulates a scenario where a user is tricked into visiting a malicious page, which then silently sends a request on their behalf to perform actions like transferring money or changing account details.</p>
+    <button onclick="simulateMediumCSRF()">Trigger Hidden Form</button>
+    <p id="mediumResult"></p>
+    <p><em>Note:</em> Attackers often use hidden forms and automatic submission techniques to carry out unauthorised actions without the user’s knowledge. This method can bypass simple CSRF protections if the server only checks the presence of a form.</p>
+</div>
+
+<div class="sandbox">
+    <h3>Example 3: Advanced CSRF Attack (Clickjacking)</h3>
+    <p>This advanced example combines CSRF with clickjacking. A transparent overlay with an embedded iframe tricks the user into clicking a disguised button. The user believes they are interacting with a legitimate element, but they are actually authorizing a malicious action.</p>
+    <button onclick="simulateHardCSRF()">Click Here (Be Cautious!)</button>
+    <p id="hardResult"></p>
+    <p><em>Note:</em> Clickjacking is a sophisticated attack that requires both visual deception and precise manipulation. Defenses include frame-busting techniques and X-Frame-Options headers to prevent unauthorised iframes.</p>
+</div>
+
+    </section>
+
+
+    <section id="csrf-unique-impact" class="section">
+        <h2>Unique Impact of CSRF Attacks: Exploiting Trust and Indirect Harm</h2>
+        <p>
+            CSRF (Cross-Site Request Forgery) attacks primarily exploit the victim by tricking them into performing unintended actions on a web application where they are authenticated. Unlike other attacks where the hacker might directly gain access to sensitive data or credentials, CSRF relies on manipulating the victim’s existing authenticated session to perform unauthorized actions.
+        </p>
+    
+        <h3>How CSRF Exploits Trust in Authenticated Sessions</h3>
+        <p>
+            In a CSRF attack, the attacker takes advantage of the trust a web application places in a user's authenticated session. Since the victim is already logged in, the application assumes any actions they perform are legitimate, even if they are unknowingly initiated by the attacker. This exploitation of session trust is what makes CSRF unique, as the attacker does not directly access the application but rather manipulates the victim's session.
+        </p>
+    
+        <h3>Indirect Benefits for the Hacker</h3>
+        <ul>
+            <li><strong>Financial Transfers:</strong> On vulnerable financial or banking sites, a CSRF attack could trick the victim into transferring money to an account controlled by the attacker.</li>
+            <li><strong>Account Manipulation:</strong> Attackers can modify account settings, change email addresses, or reset passwords if the victim is logged into a vulnerable account management system.</li>
+            <li><strong>Spamming or Phishing:</strong> CSRF can also be used to send messages, post links, or email other users on the victim’s behalf, spreading further malicious links or phishing scams.</li>
+        </ul>
+    
+        <h3>Impact on the Victim</h3>
+        <p>
+            CSRF attacks can lead to serious consequences for the victim, who may unknowingly perform actions they did not authorize. This could result in financial loss, exposure of personal information, or even damage to their reputation if unauthorized messages are sent from their account.
+        </p>
+    
+        <h3>Summary</h3>
+        <p>
+            CSRF attacks uniquely exploit the victim’s authenticated session by manipulating actions rather than directly accessing their data or credentials. The attack relies on the trust and authorization the victim has with the web application, making it a powerful form of social engineering where the attacker benefits indirectly by causing harm or triggering actions the victim never intended.
+        </p>
+    </section>
+    
+
+    <section id="csrf-prevention" class="section">
+        <h2> <img src="sword-icon.svg" alt="Sword Icon" class="icon"> How to Protect Yourself from CSRF Attacks</h2>
+        <p>
+            Cross-Site Request Forgery (CSRF) attacks exploit a user's authenticated session to send malicious requests, potentially compromising account data, initiating unwanted transactions, or exposing sensitive information. Implementing a robust defense strategy against CSRF is crucial for both users and developers. Here are some effective practices:
+        </p>
+        <ul>
+            <li><strong>Use CSRF Tokens for Each Session:</strong> 
+                <p>One of the most effective measures against CSRF is to use CSRF tokens—unique, unpredictable values generated for each session. For each request that could trigger a sensitive action, include a unique token specific to the user session. These tokens should be generated server-side, passed to the client via forms or headers, and then returned to the server with every sensitive request. If the token doesn't match, the request is rejected. This ensures that the request originates from an authorized session.</p>
+                <p><em>Example:</em> In a banking application, the form for transferring funds could include a hidden CSRF token field that is verified server-side before the transfer is processed.</p>
+            </li>
+            
+            <li><strong>Double Submit Cookie Technique:</strong> 
+                <p>This technique involves sending a CSRF token as both a cookie and a request parameter. The server can compare these values upon request. If they match, it confirms that the request is legitimate. While not as secure as a synchronized token, it provides additional security and helps verify the origin of the request.</p>
+                <p><em>Implementation:</em> The server generates a CSRF token on login, sends it as a cookie, and includes it in sensitive request headers. Each request that requires authentication compares the values to validate the request's authenticity.</p>
+            </li>
+            
+            <li><strong>Implement SameSite Cookies:</strong>
+                <p>Setting cookies with the `SameSite` attribute restricts them from being sent in cross-site requests. Using `SameSite=Lax` or `SameSite=Strict` reduces the risk of CSRF by preventing the browser from including cookies in third-party requests, unless explicitly allowed. This method can effectively prevent unauthorized access to sensitive cookies during CSRF attempts.</p>
+                <p><em>Best Practice:</em> Setting the `SameSite` attribute for cookies related to sensitive user information or authentication can greatly reduce the risk of CSRF attacks without impacting user experience.</p>
+            </li>
+            
+            <li><strong>Require User Re-authentication for High-Sensitivity Actions:</strong>
+                <p>Requiring users to re-authenticate (such as entering a password or two-factor authentication code) for sensitive actions adds an extra verification layer, protecting accounts from unauthorized actions. Even if a CSRF attack is attempted, re-authentication ensures that the attacker cannot proceed without the user's input.</p>
+                <p><em>Examples:</em> Actions such as updating account information, changing passwords, or making financial transactions may prompt re-authentication to prevent misuse.</p>
+            </li>
+            
+            <li><strong>Monitor and Log Suspicious Activities:</strong> 
+                <p>Tracking patterns and monitoring requests can help identify CSRF attempts early. Establishing logs for sensitive requests and setting up automated alerts for suspicious behavior—such as repeated requests from a single session in a short time frame—helps administrators respond quickly and investigate potential attacks.</p>
+                <p><em>Example:</em> An online store may monitor repeated order cancellations or refunds, allowing the administrator to investigate potential CSRF abuse if an unusual pattern is detected.</p>
+            </li>
+        </ul>
+        <p>
+            Adopting a multi-layered approach by combining several of these methods can create a more resilient defense against CSRF attacks. Using tokens, implementing strict cookie policies, and requiring additional authentication for high-risk actions provide comprehensive protection, reducing the likelihood of a successful CSRF attack.
+        </p>
+    </section>
+    
+
+    <footer>
+        <p>&copy; 2024 Security Vulnerabilities Showcase</p>
+    </footer>
+
+    <script>
+        function simulateEasyCSRF() {
+            document.getElementById("easyResult").textContent = "Easy CSRF Attack Simulated: Request Submitted!";
+        }
+
+        function simulateMediumCSRF() {
+            document.getElementById("mediumResult").textContent = "Medium CSRF Attack Simulated: Hidden Form Submitted!";
+        }
+
+        function simulateHardCSRF() {
+            document.getElementById("hardResult").textContent = "Hard CSRF Attack Simulated: Clickjacking Attempt Executed!";
+        }
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Security Vulnerabilities Showcase</title>
+    <link rel="stylesheet" href="sequel.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="index.html#home">Home</a></li>
+                <li><a href="about.html">About Us</a></li>
+                <li class="dropdown">
+                    <a href="#" class="dropbtn">Vulnerabilities</a>
+                    <div class="dropdown-content">
+                        <a href="o.html">Buffer Overflow</a>
+                        <a href="sequel.html">SQL Injection</a>
+                        <a href="exeses.html">Cross-Site Scripting (XSS)</a>
+                        <a href="csrf.html">Cross-Site Request Forgery (CSRF)</a>
+                        <a href="authentication.html">Broken Authentication</a>
+                        <a href="cmd_i.html">Command Injection</a>
+                        <a href="social.html">Social Engineering</a>
+                    </div>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <section id="sql-injection-section" class="section">
+        <h1>Exploiting Databases: Understanding SQL Injection Vulnerabilities</h1>
+        <div class="content">
+            <h2>What is SQL Injection?</h2>
+            <p>
+                One of the most common hacking techniques.. SQL Injection (SQLi) is quite a straightford code injection technique that exploits vulnerabilities in an application's software layer by injecting malicious SQL code into database queries. The technique allows attackers to manipulate database queries, potentially granting access to sensitive data, bypassing authentication. If the attackers get lucky, they might even be able to executing administrative operations on the database.
+            </p>
+            <p>SQL injection allows attackers to spoof identities, modify databases and destroy data. A 2012 study said the average website recieved four attacks per month, thus it is evident that this type of attack is common enough and one must be prepared to defend themselves against this it.</p>
+        </div>
+    </section>
+    
+    <section id="sql-injection-basics" class="section">
+        <h2>SQL Injection #1</h2>
+        <div class="content">
+            <p>
+                SQL injection occurs when user inputs are not properly validated or sanitised before being included in SQL queries. Here is an example of this happening:
+            </p>
+            <div class="code-sample">
+                <pre><code class="language-sql">
+        SELECT * FROM users WHERE username = 'user_input' AND password = 'user_password';
+                </code></pre>
+            </div>
+            <p>
+                If an attacker inputs a carefully crafted username or password that contains SQL code, it can manipulate the query. For example, by injecting <code>' OR '1'='1</code> as the username, the query bypasses authentication:
+            </p>
+            <div class="code-sample">
+                <pre><code class="language-sql">
+        SELECT * FROM users WHERE username = '' OR '1'='1' AND password = '';
+                </code></pre>
+            </div>
+        </div>
+    </section>
+    
+    <section id="sql-injection-sandbox" class="section">
+        <h2>SQL Injection #2</h2>
+        <div class="content">
+            <p>
+                Try entering different inputs to see how the SQL injection vulnerability works. <strong>Note</strong>: This is a simulated sandbox for educational purposes only, please don't use it unethically.
+            </p>
+            <input type="text" id="sqlUsername" placeholder="Username" />
+            <input type="text" id="sqlPassword" placeholder="Password" />
+            <button onclick="checkSqlInjection()">Submit</button>
+            <p id="sqlResult"></p>
+        </div>
+    </section>
+    
+    <section id="sql-injection-solution" class="section">
+        <h2>Why SQL Injection is Dangerous</h2>
+        <div class="content">
+            <p>
+                SQL injection vulnerabilities can allow attackers to:
+            </p>
+            <ul>
+                <li>Access or modify unauthorized data.</li>
+                <li>Bypass authentication, logging in without credentials.</li>
+                <li>Delete or alter database tables.</li>
+                <li>Execute administrative operations.</li>
+            </ul>
+        </div>
+    </section>
+
+    
+    <section id="sql-injection-medium" class="section">
+        <h2>SQL Injection #3: Conditional Bypass </h2>
+        <p>
+            This query checks both a username and an access level to allow login. 
+            Try to bypass the access level restriction by manipulating the SQL syntax.
+        </p>
+        <input type="text" id="usernameMedium" placeholder="Username" />
+        <input type="text" id="accessLevel" placeholder="Access Level" />
+        <button onclick="checkMediumSqlInjection()">Submit</button>
+        <p id="mediumResult"></p>
+    
+        <!-- Simulated SQL Query for Display -->
+        <div class="sql-code-sample">
+            <h3>SQL Query</h3>
+            <pre><code class="language-sql">
+        SELECT * FROM users WHERE username = 'user_input' AND access_level = 'access_input';
+            </code></pre>
+        </div>
+    </section>
+    
+    <script>
+    function checkMediumSqlInjection() {
+        const username = document.getElementById("usernameMedium").value;
+        const accessLevel = document.getElementById("accessLevel").value;
+        const result = document.getElementById("mediumResult");
+    
+        // Original SQL query structure
+        const query = `SELECT * FROM users WHERE username = '${username}' AND access_level = '${accessLevel}';`;
+    
+        // Check for SQL injection by bypassing access level
+        if (accessLevel.includes("' OR '1'='1") || username.includes("' OR '1'='1")) {
+            result.textContent = "Access Granted! You successfully bypassed the access level check.";
+            result.className = "success";
+            result.innerHTML += `<br><code>${query}</code>`;
+        } else {
+            result.textContent = "Access Denied. Try a different input to bypass the access level.";
+            result.className = "error";
+            result.innerHTML += `<br><code>${query}</code>`;
+        }
+    }
+    </script>
+
+<section id="sql-injection-hard" class="section">
+    <h2>SQL Injection #4: Admin Login </h2>
+    <p>
+        In this scenario, only the administrator can log in. Try to bypass the password check and gain admin access by manipulating the SQL syntax.
+    </p>
+    <input type="text" id="usernameHard" placeholder="Username" />
+    <input type="text" id="passwordHard" placeholder="Password" />
+    <button onclick="checkHardSqlInjection()">Submit</button>
+    <p id="hardResult"></p>
+
+    <!-- Simulated SQL Query for Display -->
+    <div class="sql-code-sample">
+        <h3>SQL Query</h3>
+        <pre><code class="language-sql">
+    SELECT * FROM users WHERE username = 'admin' AND password = 'password_input';
+        </code></pre>
+    </div>
+</section>
+
+<script>
+function checkHardSqlInjection() {
+    const username = document.getElementById("usernameHard").value;
+    const password = document.getElementById("passwordHard").value;
+    const result = document.getElementById("hardResult");
+
+    // Original SQL query structure
+    const query = `SELECT * FROM users WHERE username = '${username}' AND password = '${password}';`;
+
+    // Check if admin login is bypassed by SQL injection
+    if (username.toLowerCase() === "admin" && password.includes("' OR '1'='1")) {
+        result.textContent = "Admin Access Granted! You successfully bypassed the password check.";
+        result.className = "success";
+        result.innerHTML += `<br><code>${query}</code>`;
+    } else {
+        result.textContent = "Access Denied. Try a different input to log in as admin.";
+        result.className = "error";
+        result.innerHTML += `<br><code>${query}</code>`;
+    }
+}
+</script>
+
+    
+<section id="sql-prevention" class="section">
+    <h2>How to Prevent SQL Injection</h2>
+    <div class="content">
+        <p>
+            SQL Injection vulnerabilities can be mitigated using several best practices. Here are the most effective techniques to safeguard your application against SQL Injection:
+        </p>
+        <ul>
+            <li><strong>Prepared Statements:</strong> 
+                <p>Prepared statements, also known as parameterized queries, allow you to separate SQL logic from user input. Instead of embedding user input directly in SQL statements, placeholders are used, which are then replaced with the actual user input only after the query is defined. This prevents user input from being interpreted as SQL code. For example:</p>
+                <pre><code class="language-sql">
+    // Vulnerable query
+    query = "SELECT * FROM users WHERE username = '" + userInput + "';";
+
+    // Safe with Prepared Statements
+    query = "SELECT * FROM users WHERE username = ?";
+    preparedStatement.setString(1, userInput);
+                </code></pre>
+                <p>In this approach, the SQL engine knows the structure of the query in advance and treats user input strictly as data, preventing SQL code injection.</p>
+            </li>
+            
+            <li><strong>Input Validation:</strong> 
+                <p>Proper input validation ensures that user inputs conform to expected types and formats before being used in SQL queries. For instance, if a field expects a numeric value, non-numeric inputs should be rejected. This limits the potential for SQL injection by allowing only strictly formatted data. For example:</p>
+                <ul>
+                    <li><strong>Numeric Fields:</strong> Only accept numbers (e.g., for IDs).</li>
+                    <li><strong>String Fields:</strong> Strip out special characters or limit length to prevent complex injections.</li>
+                </ul>
+                <p>Using input validation libraries or regex patterns, you can enforce expected formats. However, input validation alone should not be the sole defense, as it’s more effective when combined with other measures like prepared statements.</p>
+            </li>
+            
+            <li><strong>ORMs (Object-Relational Mapping):</strong> 
+                <p>ORM frameworks, such as Hibernate (Java), Entity Framework (C#), or SQLAlchemy (Python), provide an abstraction layer that handles database interactions securely. ORMs generate SQL queries based on object-oriented code, which reduces the risk of SQL injection by sanitizing user inputs automatically. For example:</p>
+                <pre><code class="language-sql">
+    // With ORM - SQLAlchemy (Python)
+    user = session.query(User).filter(User.username == userInput).first()
+                </code></pre>
+                <p>In this example, the ORM translates the filter condition into a secure SQL query, where user input is handled safely as part of the query construction.</p>
+            </li>
+            
+            <li><strong>Stored Procedures:</strong> 
+                <p>Stored procedures are precompiled SQL code stored in the database that can be called by an application. Since the SQL code is defined in advance and user inputs are passed as parameters, SQL injection is minimized. The application calls the stored procedure without modifying its SQL structure, reducing the chance for user input to alter the SQL logic. Example:</p>
+                <pre><code class="language-sql">
+    // Defining the Stored Procedure
+    CREATE PROCEDURE GetUserInfo (IN userId INT)
+    BEGIN
+        SELECT * FROM users WHERE id = userId;
+    END;
+
+    // Calling the Stored Procedure from Application Code
+    CALL GetUserInfo(?);
+                </code></pre>
+                <p>Stored procedures encapsulate query logic, and many databases support parameterized input, further reducing the likelihood of injection attacks. Note, however, that stored procedures themselves must be well-designed to avoid vulnerabilities.</p>
+            </li>
+        </ul>
+        <p>Implementing these techniques together provides a comprehensive defense against SQL injection, ensuring user input is handled safely and securely.</p>
+    </div>
+</section>
+
+
+    <script>
+        function checkSqlInjection() {
+            const username = document.getElementById("sqlUsername").value;
+            const password = document.getElementById("sqlPassword").value;
+            const result = document.getElementById("sqlResult");
+    
+            // Simulated SQL query
+            const query = `SELECT * FROM users WHERE username = '${username}' AND password = '${password}';`;
+    
+            // Vulnerable scenario where injection succeeds
+            if (username.includes("' OR '1'='1") || password.includes("' OR '1'='1")) {
+                result.textContent = "Authentication Bypassed! You've successfully exploited the SQL injection.";
+                result.style.color = "green";
+                result.innerHTML += `<br><code>${query}</code>`;
+            } else if (username === "admin" && password === "password123") {
+                result.textContent = "Login successful!";
+                result.style.color = "green";
+                result.innerHTML += `<br><code>${query}</code>`;
+            } else {
+                result.textContent = "Login failed. Invalid credentials.";
+                result.style.color = "red";
+                result.innerHTML += `<br><code>${query}</code>`;
+            }
+        }
+    </script>    
+
+
+</body>
+</html>
